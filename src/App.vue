@@ -1,85 +1,94 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+  <div class="table-box">
+    <!-- 标题 -->
+    <div class="title">
+      <h2>最简单的 CRUD Demo</h2>
     </div>
-  </header>
-
-  <RouterView />
+    <!-- 功能 -->
+    <div class="query-box">
+      <el-input v-model="queryInput" placeholder="Please input" />
+      <el-button type="primary">增加</el-button>
+    </div>
+    <!-- 表格 -->
+    <el-table :data="tableData" style="width: 100%">
+      <el-table-column fixed prop="date" label="Date" width="150" />
+      <el-table-column prop="name" label="Name" width="120" />
+      <el-table-column prop="state" label="State" width="120" />
+      <el-table-column prop="city" label="City" width="120" />
+      <el-table-column prop="address" label="Address" width="600" />
+      <el-table-column prop="zip" label="Zip" width="120" />
+      <el-table-column fixed="right" label="Operations" width="120">
+        <template #default>
+          <el-button link type="primary" size="small" @click="handleRowClick"
+            >Detail</el-button
+          >
+          <el-button link type="primary" size="small">Edit</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
 </template>
 
+<script setup lang="ts">
+
+  import { ref } from "vue";
+
+  // 数据
+  let queryInput = ref("")
+  let talbeData  = ref([])
+  const tableData = [
+    {
+      date: '2016-05-03',
+      name: 'Tom',
+      state: 'California',
+      city: 'Los Angeles',
+      address: 'No. 189, Grove St, Los Angeles',
+      zip: 'CA 90036',
+      tag: 'Home',
+    },
+    {
+      date: '2016-05-02',
+      name: 'Tom',
+      state: 'California',
+      city: 'Los Angeles',
+      address: 'No. 189, Grove St, Los Angeles',
+      zip: 'CA 90036',
+      tag: 'Office',
+    },
+    {
+      date: '2016-05-04',
+      name: 'Tom',
+      state: 'California',
+      city: 'Los Angeles',
+      address: 'No. 189, Grove St, Los Angeles',
+      zip: 'CA 90036',
+      tag: 'Home',
+    },
+    {
+      date: '2016-05-01',
+      name: 'Tom',
+      state: 'California',
+      city: 'Los Angeles',
+      address: 'No. 189, Grove St, Los Angeles',
+      zip: 'CA 90036',
+      tag: 'Office',
+    },
+  ]
+
+  // 方法
+  
+  const handleRowClick = () => {
+    console.log('click')
+  }
+  
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+  .table-box {
+    max-width: 800px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>
