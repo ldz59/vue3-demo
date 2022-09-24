@@ -6,7 +6,7 @@
     </div>
     <!-- 功能 -->
     <div class="query-box">
-      <el-input class="query-input" v-model="queryInput" placeholder="Please input" />
+      <el-input class="query-input" v-model="queryInput" placeholder="请输入姓名搜索" @input="handleQueryName" />
       <div class="btn-list">
         <el-button type="primary" @click="handleAdd">增加</el-button>
         <el-button type="danger" @click="handleDelList" v-if="multipleSelection.length>0">删除</el-button>
@@ -116,6 +116,7 @@
       address: 'No. 189, Grove St, Los Angeles',
     },
   ])
+  let tableDataCopy = Object.assign(tableData.value)
   let multipleSelection = ref([])
   let dialogFormVisible = ref(false)
   let tableForm = ref({
@@ -129,6 +130,21 @@
 
 
   // 方法
+  // 搜索
+  const handleQueryName = (val) => {
+    // console.log(queryInput);
+    // console.log(val);
+    
+    // 数据
+    console.log(val.length);
+    
+    if(val.length > 0) {
+      tableData.value = tableData.value.filter(item => (item.name).toLowerCase().match(val.toLowerCase()))
+    } else {
+      tableData.value = tableDataCopy
+    }
+    
+  }
   // 删除一条
   const handleRowDel = ({id}) => {
     console.log(id)
